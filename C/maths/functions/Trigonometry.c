@@ -20,7 +20,7 @@
  *
  * vérifié graphiquement grâce à python.
  */
-float atan(float x, float epsilon)
+double atan(double x, double epsilon)
 {
     // on vérifie que x est dans [-1, 1]
     if (abs_f(x) > 1) {

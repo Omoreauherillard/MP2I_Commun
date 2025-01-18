@@ -1,5 +1,9 @@
 #include "Complex.h"
+
 #include "maths/functions/Trigonometry.h"
+
+
+#include <stdlib.h>
 
 //////  Functions
 
@@ -11,6 +15,10 @@ Complex* createComplex(float re, float im)
     z->im = im;
 
     return z;
+}
+
+void freeComplex(Complex* const z) {
+    free(z);
 }
 
 ////////////// Operation

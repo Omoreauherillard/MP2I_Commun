@@ -11,6 +11,7 @@ typedef struct {
 //////  Functions
 
 Complex* createComplex(float re, float im);
+void freeComplex(Complex* const z);
 
 Complex multiply(Complex z1, Complex z2);
 Complex divide(Complex z1, Complex z2);
