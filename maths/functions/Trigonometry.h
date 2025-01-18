@@ -1,6 +1,6 @@
 #pragma once
 
-float atan(float x);
+float atan(float x, float epsilon);
 float asin(float x);
 float acos(float x);
 

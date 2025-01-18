@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdarg.h>
-
-typedef unsigned int uint;
+#include <stdint.h>
 
 /////////////// Libraries
 
@@ -20,7 +19,7 @@ typedef struct {
 
 //////////////// PROTOTYPES
 
-Poly* createPoly(uint deg, ...);
+Poly* createPoly(uint32_t deg, ...);
 
 
 
@@ -28,7 +27,7 @@ Poly* createPoly(uint deg, ...);
 
 /////////////// FUNCTIONS' BODY
 
-Poly* createPoly(uint deg, ...){
+Poly* createPoly(uint32_t deg, ...){
     va_list list_args;
 
     Poly* p = malloc(sizeof(Complex) * (deg+1));
@@ -36,7 +35,7 @@ Poly* createPoly(uint deg, ...){
 
     // we retrieve the polynom's coefficients
    va_start(list_args, deg + 1);
-   for(uint i=0; i<deg + 1; i++)
+   for(uint32_t i=0; i<deg + 1; i++)
    {
         p->coefs[i] = va_arg(list_args, Complex);
    }

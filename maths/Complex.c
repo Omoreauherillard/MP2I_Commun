@@ -32,9 +32,12 @@ float arg(Complex z){
     if(z.re == 0)
     {
         return PI/2 * (2 * ((z.im > 0) - 0.5f));
-    } else if (z.im > 0)
+    } else if (z.re > 0)
     {
-        return 
+        return atan(z.im / z.re, 1e-10);
+    } else
+    {
+
     }
 
 }
