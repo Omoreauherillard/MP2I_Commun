@@ -43,11 +43,3 @@ Poly* createPoly(uint32_t deg, ...){
 
    return p;
 }
-
-
-
-
-
-int main(int argc, char** argv) {
-
-}
