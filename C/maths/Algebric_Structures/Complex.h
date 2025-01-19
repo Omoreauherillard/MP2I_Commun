@@ -13,6 +13,8 @@ typedef struct {
 Complex* createComplex(float re, float im);
 void freeComplex(Complex* const z);
 
+Complex conjugate(Complex z);
+
 Complex multiply(Complex z1, Complex z2);
 Complex divide(Complex z1, Complex z2);
 Complex add(Complex z1, Complex z2);

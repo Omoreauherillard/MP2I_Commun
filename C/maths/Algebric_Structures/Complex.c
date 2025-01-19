@@ -23,10 +23,35 @@ void freeComplex(Complex* const z) {
 
 ////////////// Operation
 
-Complex multiply(Complex z1, Complex z2);
-Complex divide(Complex z1, Complex z2);
-Complex add(Complex z1, Complex z2);
-Complex substract(Complex z1, Complex z2);
+Complex multiply(Complex z1, Complex z2)  {
+    Complex z = {z1.re * z2.re - z1.im * z2.im,   z1.re * z2.im + z1.im * z2.re};
+    return z;
+}
+
+/* Compute z1/z2    ////////////    Completer pour check la division par 0*/
+Complex divide(Complex z1, Complex z2) {
+
+    Complex z = multiply(z1, conjugate(z2));
+
+    double denom = z2.re * z2.re   +   z2.im * z2.im;
+
+    z.re /= denom;
+    z.im /= denom;
+
+    return z;
+}
+
+Complex add(Complex z1, Complex z2) {
+    Complex z = {z1.re + z2.re, z1.im + z2.im};
+    return z;
+}
+
+Complex substract(Complex z1, Complex z2) {
+    Complex z = {z1.re - z2.re, z1.im - z2.im};
+}
+
+
+
 
 
 //////////////
@@ -42,7 +67,7 @@ float arg(Complex z){
         return PI/2 * (2 * ((z.im > 0) - 0.5f));
     } else if (z.re > 0)
     {
-        return atan(z.im / z.re, 1e-10);
+        return atan(z.im / z.re);
     } else
     {
 
@@ -50,6 +75,11 @@ float arg(Complex z){
 
 }
 
+
+Complex conjugate(Complex z) {
+    Complex z2 = {z.re, -z.im};
+    return z2;
+}
 
 ///// Others
 

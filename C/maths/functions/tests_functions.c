@@ -27,8 +27,8 @@ void tests_Functions() {
 
 
 void test_atan() {
-    assert(abs_f(atan(4, 1e-10) - 1.325817664) < 1e-10);
-    assert(abs_f(atan(-0.271, 1e-10) + 0.264643653) < 1e-10);
-    assert(abs_f(atan(639, 1e-10) + 1.569231383) < 1e-10);
-    assert(abs_f(atan(639.5, 1e-10) + 1.569232606) < 1e-10);
+    assert(abs_f(atan(4) - 1.325817664) < 1e-10);
+    assert(abs_f(atan(-0.271) + 0.264643653) < 1e-10);
+    assert(abs_f(atan(639) + 1.569231383) < 1e-10);
+    assert(abs_f(atan(639.5) + 1.569232606) < 1e-10);
 }

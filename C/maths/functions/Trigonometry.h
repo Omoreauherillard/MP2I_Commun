@@ -1,13 +1,13 @@
 #pragma once
 
-double atan(float x, float epsilon);
-double asin(float x);
-double acos(float x);
+double atan(double x);
+double asin(double x);
+double acos(double x);
 
-double tan(float x);
-double sin(float x);
-double cos(float x);
+double tan(double x);
+double sin(double x);
+double cos(double x);
 
-double ch(float x);
-double sh(float x);
-double th(float x);
+double ch(double x);
+double sh(double x);
+double th(double x);
