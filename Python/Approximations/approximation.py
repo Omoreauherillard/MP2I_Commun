@@ -115,46 +115,54 @@ def acos(x) :
     return np.pi/2 - asin_optimized(x)
 
 
-def exp(x) : 
-    
+def exp(x) :
     if x < 0:
         return 1/exp(-x)
-    
+
     term = 1
     result = term
     n = 1
-    while abs(term) > 1e-12:
+    while abs(term) > 1e-25:
         term *= x/n
         result += term
         n += 1 
-    return result
+    return result, n
+
+    
+def sqrt_test(x):
+    if x < 0:
+        raise ValueError("racine negative")
+    if x == 0:
+        return 0, 0
+    g = x/2
+    it = 0
+
+    while it < 10 and abs(g * g - x) > 1e-15:
+        g = (g + x /g) / 2
+        it = it+1
+    return g, it
 
 
-# Test des fonctions
-# Test rapide
-x = 186  # Exemple
-epsilon = 1e-15  # Précision
+def ln_test(x) : 
+    if x <= 0:
+        raise ValueError(f"ln({x}) = is undefined")
+    #initialisation
+    y = x if x > 1 else 1
 
-sin_value = sin_chebyshev(x)
-cos_value = cos_chebyshev(x)
-sin_value2 = sin_optimized(x, epsilon)
-cos_value2 = cos_optimized(x, epsilon)
-
-print(f"sin({x}) ≈ {sin_value}")
-print(f"cos({x}) ≈ {cos_value}")
-print(f"sin({x}) ≈ {sin_value2}")
-print(f"cos({x}) ≈ {cos_value2}")
+    it = 0
+    while it < 20 and abs(exp(y) - x) > 1e-15:
+        y = y - (exp(y) - x) / exp(y)
+        it += 1
+        print(f"y = {y}\t\tx = {x}")
+    return y, it
 
 
 
-
-
-
-
-k = 50000
+k = 5000
 limit = 100
-X = np.linspace(-limit, limit, 10000)
-Real = np.sin(X)
+X = np.linspace(0.0000001, limit, 10000)
+Real = np.exp(X)
+
 
 Approx1 = []
 Approx2 = []
@@ -162,31 +170,53 @@ Approx2 = []
 Error1 = []
 Error2 = []
 
+Iterations1 = []
+
 for i in range(len(X)):
-    Approx1.append(sin_optimized(X[i], epsilon))
+    res1, it1 = exp(X[i])
+
+    Approx1.append(res1)
     Approx2.append(sin_chebyshev(X[i]))
 
     Error1.append(Real[i] - Approx1[i])
     Error2.append(Real[i] - Approx2[i])
 
+    Iterations1.append(it1)
+
 
 # tracé des fonctions
-plt.figure(1, figsize=(6,5))
-plt.plot(X, Approx1, '-', color='r', label='Maclaurin')
-plt.plot(X, Approx2, '-', color='g', label='Tchebichev')
+plt.figure(1, figsize=(15,6))
+
+
+plt.subplot(1, 3, 1)
+plt.plot(X, Approx1, '-', color='r', label='Approximation')
+#plt.plot(X, Approx2, '-', color='g', label='Tchebichev')
 plt.plot(X, Real, ':', color='b', label='Numpy')
 plt.legend()
 plt.xlabel('X', loc='right')
 plt.ylabel('Y', loc='top')
+plt.title("Graphe de la fonction")
+
+
+
 
 # tracé des fonctions erreurs
-plt.figure(2, figsize=(6,5))
-plt.plot(X, Error1, ':', color='r', label='Maclaurin')
+plt.subplot(1, 3, 2)
+plt.plot(X, Error1, ':', color='r', label='Erreur')
 #plt.plot(X, Error2, '-', color='g', label='Tchebichev')
 plt.legend()
 plt.xlabel('X', loc='right')
 plt.ylabel('Y', loc='top')
+plt.title("Graphe de l'erreur")
 
+# tracé du nombre d'itération
+plt.subplot(1, 3, 3)
+plt.plot(X, Iterations1, ':', color='r', label='Itérations')
+#plt.plot(X, iterations2, ':', color='g', label='Tchebichev')
+plt.legend()
+plt.title("graphe du nb d'itération")
+plt.xlabel('X', loc='right')
+plt.ylabel("nb d'itérations", loc='top')
 
 
 plt.show()
