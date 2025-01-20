@@ -4,7 +4,7 @@
 float abs_f(float x);
 uint32_t abs(int x);
 double abs_d(double x);
-
+double exp(double x); 
 
 
 /// renvoie le signe de x, 1 si x = 0

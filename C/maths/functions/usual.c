@@ -30,7 +30,22 @@ int sgn_d(float x){
     return 2.0f * (0.5f - (float)(x < 0));
 }
 
-
+/* calcul exp par DL */
+double exp(double x){ 
+    
+    if(x < 0){
+        return 1/exp(-x);
+    }
+    double term = 1;
+    double result = term;
+    double n = 1;
+    while (abs(term) > 1e-12){
+        term *= x/n;
+        result += term;
+        n += 1;
+    }
+    return result;
+}
 
 /* 
  * Donne la congruence de `x` modulo `mod` sur [0, mod]
