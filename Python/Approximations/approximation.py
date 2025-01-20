@@ -91,6 +91,45 @@ def cos_chebyshev(x):
 
 
 
+def asin_optimized(x) :
+    if abs(x) != 1:
+        x -= int(x)
+    elif x == 1:
+        return np.pi / 2
+    else:
+        return -np.pi / 2
+        
+    
+    term = x
+    result = term
+    x2 = x * x
+    n = 1
+    
+    while abs(term) > 1e-15:
+        term *= x2 * ((2*n - 1) * (2*n)) / (4*n*n)
+        result += term / (2*n + 1)
+        n += 1
+    return result
+
+def acos(x) :
+    return np.pi/2 - asin_optimized(x)
+
+
+def exp(x) : 
+    
+    if x < 0:
+        return 1/exp(-x)
+    
+    term = 1
+    result = term
+    n = 1
+    while abs(term) > 1e-12:
+        term *= x/n
+        result += term
+        n += 1 
+    return result
+
+
 # Test des fonctions
 # Test rapide
 x = 186  # Exemple
