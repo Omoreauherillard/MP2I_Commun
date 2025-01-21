@@ -30,22 +30,46 @@ int sgn_d(float x){
     return 2.0f * (0.5f - (float)(x < 0));
 }
 
-/* calcul exp par DL */
-double exp(double x){ 
-    
-    if(x < 0){
-        return 1/exp(-x);
+
+
+double pow2_d(long n) {
+    if (n == 0) {
+        return 1;
+    } else if (n > 0) {
+        double result = 1;
+        for(int _ = 0; _ < n; _++)
+        {
+            result *= 2;
+        }
+        return result;
+    } else {
+        return 1 / pow2_d(-n);
     }
-    double term = 1;
-    double result = term;
-    double n = 1;
-    while (abs(term) > 1e-12){
-        term *= x/n;
-        result += term;
-        n += 1;
-    }
-    return result;
 }
+
+
+
+
+/* calcul d' exp par ....*/
+double exp(double x) {
+    double ln2 = 0.69314718055994530941723212145817656807550013436025525412068000949339362196;
+    long k = (long)(x/ln2);
+    double r = x - k * ln2;
+
+    double term = 1;
+    double p = term;
+    int n = 1;
+
+    while (abs_d(term) > 1e-16) {
+        term *= r /n;
+        n++;
+
+        p += term;
+    }
+    return pow2_d(k) * p;
+}
+
+
 
 /* 
  * Donne la congruence de `x` modulo `mod` sur [0, mod]
