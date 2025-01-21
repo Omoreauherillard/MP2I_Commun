@@ -42,6 +42,39 @@ double atan(double x)
     return result;
 }
 
+/* Calcul de  asin par DL */
+
+double asin(double x){
+    if (abs(x) != 1){
+        x = x - (int)x;
+    }
+    else if(x == 1){
+        return PI / 2;
+    }
+    else{
+        return  -PI/2;
+    }
+
+    double term = x;
+    double result = term;
+    double x2 = x*x;
+    double n = 1;
+
+    while(abs(term)>1e-15){
+        term *= x2 * ((2*n - 1) * (2*n)) / (4*n*n);
+        result += term / (2*n + 1);
+        n += 1;
+    }
+    return result;
+}
+
+
+/* Calcul acos par rapport a asin */
+
+double acos(double x){
+    return PI/2 - asin(x);
+}
+
 
 
 /* Calcul de la tangente (tan(x) = sin(x) / cos(x))*/
@@ -99,4 +132,18 @@ double cos(double x) {
     }
 
     return result;
+}
+
+/* fonction hyperboliques */
+
+double ch(double x){
+    return (exp(x)+exp(-x))/2;
+}
+
+double sh(double x){
+    return (exp(x)-exp(-x))/2;
+}
+
+double th(double x){
+    return sh(x)/ch(x);
 }
